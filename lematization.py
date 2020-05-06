@@ -2,7 +2,7 @@
 
 import nltk
 from nltk.stem import WordNetLemmatizer
-
+from nltk.corpus import wordnet
 wordnet_lemmatizer = WordNetLemmatizer()
 
 
@@ -43,3 +43,31 @@ def lemmatize(word_dictionary, text):
             sentence_words.remove(word)
 
     return word_dictionary
+
+
+def synonyms(word):
+    synonyms = []
+    """text"""
+    for synonym in wordnet.synsets(word):
+        for l in synonym.lemmas():
+            synonyms.append(l.name())
+    return set(synonyms)
+
+
+def lemmatize_new(word_list, text):
+    amount = []
+
+    punctuations = "?:!.,;"
+    sentence_words = nltk.word_tokenize(text)
+    # remove the punctuations
+    for word in sentence_words:
+        if word in punctuations:
+            sentence_words.remove(word)
+    # check for all the nouns
+    for word in sentence_words:
+
+        lemmatized_word = wordnet_lemmatizer.lemmatize(word, pos="n")
+        if lemmatized_word in word_list:
+            amount.append(word)
+
+    return amount
