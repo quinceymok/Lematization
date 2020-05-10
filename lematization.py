@@ -3,6 +3,7 @@
 import nltk
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import wordnet
+
 wordnet_lemmatizer = WordNetLemmatizer()
 
 
@@ -71,3 +72,16 @@ def lemmatize_new(word_list, text):
             amount.append(word)
 
     return amount
+
+
+def pos_tag(text, word_sort):
+    sentences = nltk.sent_tokenize(text)  # tokenize text
+    words = []  # empty to array to hold all nouns
+
+    for sentence in sentences:
+        for word, pos in nltk.pos_tag(nltk.word_tokenize(str(sentence))):
+            if pos in word_sort:
+                if word not in words:
+                    words.append(word)
+    return words
+

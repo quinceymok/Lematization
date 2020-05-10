@@ -1,14 +1,15 @@
-from lematization import lemmatize, synonyms, lemmatize_new
+from lematization import lemmatize, synonyms, lemmatize_new, nltk, pos_tag
 
 
 def main():
-    b = synonyms('short')
-    a = [b,]
-    print(b)
-    review = "You can see that you understand the purpose, even if the introduction is a bit shortstop short clear clearly clear. For the following " \
-             "you may want to give the brief explanation of the symbols their own page and not put them in the " \
-             "introduction. The symbols and explanations that go with it are clearly stated "
-    print(lemmatize_new(b, review))
+    description = "In sprint 3 I was busy making an actionplan actionplan to analyze scientific articles. I first wrote the " \
+                  "plan of action in the form of a summary. "
+
+    review = "sprint 3 was good. very excellent actionplan  written!"
+
+    dictionary = dict.fromkeys(pos_tag(description, ["NN"]), 0)
+    a = lemmatize(dictionary, review)
+    print(a)
 
 
 if __name__ == "__main__":
