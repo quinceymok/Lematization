@@ -11,7 +11,7 @@ def main():
     a = lemmatize(dictionary, review)
 
     tekst = "Jesper en Quincey gaan op avontuur"
-    print(tekst.strip())
+    print(a)
 
 if __name__ == "__main__":
     main()

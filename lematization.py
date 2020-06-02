@@ -102,16 +102,8 @@ def word_count(text, unique):
         return len(word_list)
 
 
-def word_count_quality(description, review):
 
 
-def check_quality(description, review):
-    """
-    Returns the average of all the quality checks
-    :param description: string
-    :param review: string
-    :return:
-    """
-    all_qualities = [word_count_quality(description, review), sentiment_quality(description, review) ]
+
 
 
