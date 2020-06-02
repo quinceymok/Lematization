@@ -85,3 +85,33 @@ def pos_tag(text, word_sort):
                     words.append(word)
     return words
 
+
+def word_count(text, unique):
+    """
+    this function will count the words in the text. It will return unique words if (unique == True).
+    """
+    punctuations = "?:!.,;"
+    word_list = nltk.word_tokenize(text)
+    for word in word_list:
+        if word in punctuations:
+            word_list.remove(word)
+
+    if unique:  # check if unique words == True, return the length of the list as a set
+        return len(set(word_list))
+    else:
+        return len(word_list)
+
+
+def word_count_quality(description, review):
+
+
+def check_quality(description, review):
+    """
+    Returns the average of all the quality checks
+    :param description: string
+    :param review: string
+    :return:
+    """
+    all_qualities = [word_count_quality(description, review), sentiment_quality(description, review) ]
+
+
