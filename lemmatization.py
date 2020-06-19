@@ -1,5 +1,3 @@
-# een prototype waarmee je synoniemen uit een review haalt en vergelijkt met de woorden uit de dictionnary
-
 import nltk
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import wordnet
@@ -9,8 +7,11 @@ wordnet_lemmatizer = WordNetLemmatizer()
 
 def lemmatize(word_dictionary, text):
     """
-    The function will remove the punctuations in the text. Then lemmatize the text and
-    return the given dictionary with the amount of words.
+    The function will remove the punctuations in the text and then lemmatize it.
+    Then it adds up all the words with the same prefix/suffix that were given in the word_dictionary
+    :param word_dictionary: a dictionary with words and a counter
+    :param text: string
+    :return: the given dictionary with the amount of words.
     """
     punctuations = "?:!.,;"
     sentence_words = nltk.word_tokenize(text)
@@ -47,16 +48,26 @@ def lemmatize(word_dictionary, text):
 
 
 def synonyms(word):
+    """
+    This function will look up all synonyms for a given word as known in wordnet.
+    :param word: a string
+    :return: a set of strings
+    """
     synonyms = []
-    """text"""
     for synonym in wordnet.synsets(word):
         for l in synonym.lemmas():
             synonyms.append(l.name())
     return set(synonyms)
 
 
-def lemmatize_new(word_list, text):
-    amount = []
+def get_words(word_list, text):
+    """
+    Takes a wordlist and look for all of those words in the given text
+    :param word_list: list of words
+    :param text: string
+    :return: returns a list with words that were found
+    """
+    found_words = []
 
     punctuations = "?:!.,;"
     sentence_words = nltk.word_tokenize(text)
@@ -66,17 +77,27 @@ def lemmatize_new(word_list, text):
             sentence_words.remove(word)
     # check for all the nouns
     for word in sentence_words:
-
         lemmatized_word = wordnet_lemmatizer.lemmatize(word, pos="n")
+        # If it's in the word_list append the word to found_words
         if lemmatized_word in word_list:
-            amount.append(word)
+            found_words.append(word)
 
-    return amount
+    return found_words
 
 
 def pos_tag(text, word_sort):
+    """
+    This function looks in the text for all words that are the same as the word sort.
+
+    The following options for word_sort are available: CC, CD, DT, EX, FW, IN, JJ, JJR, JJS,
+    LS, MD, NN, NNS, NNP, NNPS, PDT, POS, PRP, PRP$, RB, RBR, RBS, RP, TO, UH, VB, VBD, VBG,
+    VBN, VBP, VBZ, WDT, WP, WP$, WRB
+    :param text: string
+    :param word_sort: POS tag string
+    :return: returns a list of words with the found words in text
+    """
     sentences = nltk.sent_tokenize(text)  # tokenize text
-    words = []  # empty to array to hold all nouns
+    words = []  # empty to array to hold all words
 
     for sentence in sentences:
         for word, pos in nltk.pos_tag(nltk.word_tokenize(str(sentence))):
@@ -86,24 +107,28 @@ def pos_tag(text, word_sort):
     return words
 
 
-def word_count(text, unique):
+def word_count(text):
     """
-    this function will count the words in the text. It will return unique words if (unique == True).
+    calculates the amount of words in a given text.
+    :param text: string
+    :return: integer
     """
-    punctuations = "?:!.,;"
     word_list = nltk.word_tokenize(text)
     for word in word_list:
-        if word in punctuations:
+        if not word.isalpha():
+            word_list.remove(word)
+    return len(word_list)
+
+
+def unique_word_count(text):
+    """
+    calculates the unique amount of words in a given text.
+    :param text: string
+    :return: integer
+    """
+    word_list = nltk.word_tokenize(text)
+    for word in word_list:
+        if not word.isalpha():
             word_list.remove(word)
 
-    if unique:  # check if unique words == True, return the length of the list as a set
-        return len(set(word_list))
-    else:
-        return len(word_list)
-
-
-
-
-
-
-
+    return len(set(word_list))
