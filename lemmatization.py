@@ -53,11 +53,11 @@ def synonyms(word):
     :param word: a string
     :return: a set of strings
     """
-    synonyms = []
+    synonyms_list = []
     for synonym in wordnet.synsets(word):
-        for l in synonym.lemmas():
-            synonyms.append(l.name())
-    return set(synonyms)
+        for i in synonym.lemmas():
+            synonyms_list.append(i.name())
+    return set(synonyms_list)
 
 
 def get_words(word_list, text):

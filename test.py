@@ -20,17 +20,20 @@ def test_synonyms():
                                                                                    "'charwoman', 'fair_sex', " \
                                                                                    "'cleaning_woman', 'cleaning_lady'} "
 
+
 def test_get_words():
     wordlist = ['cookie', 'candy', 'cake']
     text = "The girl with a cookie in her hand also wanted to eat candy and a piece of cake."
     assert lemmatization.get_words(wordlist, text) == ['cookie', 'candy', 'cake'], "Should be ['cookie', 'candy', " \
                                                                                    "'cake'] "
 
+
 def test_post_tag():
     text = "In sprint 3 I was busy making an actionplan actionplan to analyze scientific articles. I first wrote the " \
-                  "plan of action in the form of a summary. "
+           "plan of action in the form of a summary. "
     word_sort = "VB"
     assert lemmatization.pos_tag(text, word_sort) == ['analyze'], "Should be ['analyze']"
+
 
 def test_word_count():
     text = "This is the.. test test text"
