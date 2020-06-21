@@ -6,6 +6,7 @@ Deze module maakt gebruik van NLTK. Zie [NLTK](http://www.nltk.org/install.html)
 
 Via nltk.download() download je de volgende modules: punkt, snowball_data
 Ook download je de volgende packages in de corpora: gazetteers, wordnet
+nltk.download() zet je in de file: lemmatization.py
 
 Zet de lemmatization module in je project om er gebruik van te maken.
 
